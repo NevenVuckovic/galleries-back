@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Gallery extends Model
+class Comment extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'title',
-        'description',
+        'text',
         'user_id',
+        'gallery_id',
     ];
 }
