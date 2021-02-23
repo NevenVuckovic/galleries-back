@@ -12,4 +12,14 @@ class Image extends Model
         'imageURL',
         'gallery_id',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(Gallery::class, 'gallery_id');
+    }
+
+    public function comments()
+    {
+        return $this->belongsTo(Comment::class, 'gallery_id');
+    }
 }

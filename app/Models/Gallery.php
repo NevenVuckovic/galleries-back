@@ -13,4 +13,19 @@ class Gallery extends Model
         'description',
         'user_id',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function images()
+    {
+        return $this->hasMany(Image::class, 'gallery_id');
+    }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class, 'gallery_id');
+    }
 }
