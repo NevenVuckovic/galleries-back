@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CommentRequest;
 use App\Models\Comment;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
@@ -35,9 +37,17 @@ class CommentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CommentRequest $request, $id)
     {
-        //
+        $data = $request->validated();
+        $user = auth('api')->user();
+        $user = User::findOrFail($user->id);
+        $comment = Comment::create([
+            "content" => $data["content"],
+            "gallery_id" => $id,
+            "user_id" => $user['id'],
+        ]);
+        return $comment;
     }
 
     /**
@@ -82,6 +92,13 @@ class CommentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $comment = Comment::find($id);
+        $user = auth('api')->user();
+        if ($user->id = $comment->user_id) {
+            $comment->delete();
+        }
+        return response()->json([
+            'message' => 'Comment deleted!',
+        ]);
     }
 }

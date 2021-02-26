@@ -28,4 +28,18 @@ class Gallery extends Model
     {
         return $this->hasMany(Comment::class, 'gallery_id');
     }
+    public function addImages($url, $id)
+    {
+        return $this->images()->create([
+            'url' => $url,
+            'gallery_id' => $id,
+        ]);
+    }
+    public function editGalleryImages($url, $id)
+    {
+        return $this->images()->update([
+            'url' => $url,
+            'gallery_id' => $id,
+        ]);
+    }
 }
